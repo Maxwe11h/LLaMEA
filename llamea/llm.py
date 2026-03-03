@@ -151,7 +151,10 @@ class LLM(ABC):
                 "client", "\n".join([d["content"] for d in session_messages])
             )
 
+        import time as _time
+        _t0 = _time.monotonic()
         message = self.query(session_messages)
+        _llm_time = _time.monotonic() - _t0
 
         if self.log:
             self.logger.log_conversation(self.model, message)
@@ -190,6 +193,7 @@ class LLM(ABC):
             code=code,
             parent_ids=parent_ids,
         )
+        new_individual.add_metadata("llm_generation_time_s", round(_llm_time, 3))
 
         return new_individual
 
