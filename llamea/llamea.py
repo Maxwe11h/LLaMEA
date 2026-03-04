@@ -1137,6 +1137,7 @@ Feedback:
             new_offspring_population = self._select_parents()
 
             new_population = []
+            new_population_gen = []
             try:
                 timeout = self.eval_timeout
                 new_population_gen = Parallel(
