@@ -617,7 +617,7 @@ Feedback:
         """
         Update the best individual in the new population
         """
-        if isinstance(self.best_so_far, Solution):
+        if not hasattr(self.best_so_far, "add_solutions"):
             if self.niching == "novelty" or self.minimization == False:
                 best_individual = max(self.population, key=lambda x: x.fitness)
 
@@ -1117,7 +1117,7 @@ Feedback:
             self.logger.log_population(self.population)
 
         log_message = ""
-        if isinstance(self.best_so_far, Solution):
+        if not hasattr(self.best_so_far, "get_best"):
             log_message = (
                 f"Started evolutionary loop, best so far: {self.best_so_far.fitness}"
             )
@@ -1172,7 +1172,7 @@ Feedback:
             self.population = self.selection(self.population, new_population)
             self.update_best()
             log_message = ""
-            if isinstance(self.best_so_far, Solution):
+            if not hasattr(self.best_so_far, "get_best"):
                 log_message = f"Generation {self.generation}, best so far: {self.best_so_far.fitness}"
             else:
                 fitness_vector = "\n".join(
